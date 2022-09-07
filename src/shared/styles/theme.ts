@@ -7,6 +7,7 @@ export const theme = {
   },
   colors: {
     white: "#FFFFFF",
+    black: "#000000",
   },
   borderRadius: {
     br2: "0.125rem",
