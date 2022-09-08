@@ -1,11 +1,11 @@
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/abstract-provider";
-// import { BCDeimosContract } from "src/shared/common/contract/index";
+import { OligarchFari } from "src/shared/contract/OligarchFari";
 
 export type WalletContextType = {
   account: string;
   connectWallet(): void;
-  // contract: BCDeimosContract | null;
+  contract: OligarchFari | null;
   signer: Signer | null;
   provider: Provider | null;
 };

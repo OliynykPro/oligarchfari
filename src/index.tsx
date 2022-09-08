@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "src/shared/styles/theme";
 import { WalletServiceProvider } from "./contexts/WalletProvider/WalletProvider";
 import { ModalContextProvider } from "./contexts/ModalProvider/ModalProvider";
+import { OligarchfariServiceProvider } from "./contexts/OligarchfariProvider/OligarchfariProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as Element | DocumentFragment
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <ThemeProvider theme={theme}>
     <WalletServiceProvider>
-      <ModalContextProvider>
-        <App />
-      </ModalContextProvider>
+      <OligarchfariServiceProvider>
+        <ModalContextProvider>
+          <App />
+        </ModalContextProvider>
+      </OligarchfariServiceProvider>
     </WalletServiceProvider>
   </ThemeProvider>
 );

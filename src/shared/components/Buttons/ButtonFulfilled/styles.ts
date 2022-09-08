@@ -4,13 +4,13 @@ export const ButtonFulfilledStyled = styled.button`
   border: none;
   cursor: pointer;
   font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4rem;
   padding: 0.65rem 1.25rem;
   color: ${({ theme }) => theme.colors.white};
   transition: ${({ theme }) => theme.transition.easeAll};
-  border-radius: ${({ theme }) => theme.borderRadius.br8};
   background-color: ${({ theme }) => theme.colors.black};
+  border-radius: ${({ theme }) => theme.borderRadius.br50};
 
   &.medium {
     padding: 0.525rem 0.5rem;

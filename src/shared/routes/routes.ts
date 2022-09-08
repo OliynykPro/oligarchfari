@@ -3,4 +3,8 @@ export default Object.freeze({
     name: "Home",
     route: "/",
   },
+  CASE_PAGE: {
+    name: "Case",
+    route: "/:id",
+  },
 });

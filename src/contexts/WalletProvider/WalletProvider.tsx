@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ethers, providers, Signer } from "ethers";
-// import abi from "src/shared/common/configs/abi.json";
-// import { BCDeimosContract } from "src/shared/common/contract/index";
+import abi from "src/shared/contract/abi.json";
 import { network } from "src/shared/config/network";
 // import { contractAddress } from "src/shared/common/configs/contractAddress";
 import { WalletContextType, WalletProviderProps } from "./interface";
 import { openLinkInNewTab } from "src/shared/common/helpers/openLinkInNewTab";
+import { OligarchFari } from "src/shared/contract/OligarchFari";
 
 declare global {
   interface Window {
@@ -16,7 +16,7 @@ declare global {
 const initialWalletState: WalletContextType = {
   account: "",
   connectWallet: () => undefined,
-  // contract: null,
+  contract: null,
   signer: null,
   provider: null,
 };
@@ -27,20 +27,23 @@ export const WalletServiceContext =
 export function WalletServiceProvider({ children }: WalletProviderProps) {
   const metamaskInstallerLink = "https://metamask.io/download/";
 
-  const [address, setAddress] = useState<string | null>(null);
+  const [address, setAddress] = useState<string | null>(
+    "0x9c5636AFBd142768463522f780cc9704399362A7"
+  );
   const [account, setAccount] = useState<string>("");
   const [provider, setProvider] = useState<providers.JsonRpcProvider | null>(
     null
   );
   const [signer, setSigner] = useState<Signer | null>(null);
-  // const [contract, setContract] = useState<BCDeimosContract | null>(null);
+  const [contract, setContract] = useState<OligarchFari | null>(null);
+
+  console.log("contract", contract);
 
   function accountChangeHandler(newAccount: string) {
     setAccount(newAccount);
   }
 
   async function connectWallet(): Promise<void> {
-    console.log("connect wallet");
     try {
       if (window.ethereum) {
         const accounts = await window.ethereum.request({
@@ -74,43 +77,43 @@ export function WalletServiceProvider({ children }: WalletProviderProps) {
     }
   }
 
-  // function updateEthers() {
-  //   if (!address) return;
-  //   if (account) {
-  //     const tempProvider = new ethers.providers.Web3Provider(window.ethereum);
-  //     setProvider(tempProvider);
+  function updateEthers() {
+    if (!address) return;
+    if (account) {
+      const tempProvider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(tempProvider);
 
-  //     const tempSigner = tempProvider.getSigner();
-  //     setSigner(tempSigner);
+      const tempSigner = tempProvider.getSigner();
+      setSigner(tempSigner);
 
-  //     const tempContract = new ethers.Contract(address, abi, tempSigner);
-  //     setContract(tempContract as BCDeimosContract);
-  //   } else {
-  //     const tempProvider = new ethers.providers.JsonRpcProvider(
-  //       networkConfig[environment as keyof typeof networkConfig].rpcUrls[0]
-  //     );
-  //     setProvider(tempProvider);
+      const tempContract = new ethers.Contract(address, abi, tempSigner);
+      setContract(tempContract as OligarchFari);
+    } else {
+      const tempProvider = new ethers.providers.JsonRpcProvider(
+        network["testnet"].rpcUrls[0]
+      );
+      setProvider(tempProvider);
 
-  //     const tempSigner = tempProvider.getSigner(
-  //       "0x19A175f97fAdcA33bb38BA3e2c37e35C507a71E8" // TODO: change this workaround
-  //     );
-  //     setSigner(tempSigner);
+      const tempSigner = tempProvider.getSigner(
+        "0x19A175f97fAdcA33bb38BA3e2c37e35C507a71E8" // TODO: change this workaround
+      );
+      setSigner(tempSigner);
 
-  //     const tempContract = new ethers.Contract(address, abi, tempSigner);
-  //     setContract(tempContract as BCDeimosContract);
-  //   }
-  // }
+      const tempContract = new ethers.Contract(address, abi, tempSigner);
+      setContract(tempContract as OligarchFari);
+    }
+  }
 
-  // useEffect(() => {
-  //   updateEthers();
-  // }, [account, address]);
+  useEffect(() => {
+    updateEthers();
+  }, [account, address]);
 
   return (
     <WalletServiceContext.Provider
       value={{
         connectWallet,
         account,
-        // contract,
+        contract,
         signer,
         provider,
       }}

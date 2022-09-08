@@ -1,5 +1,5 @@
 import { IconsEnum } from "src/shared/common/enums/IconsEnum";
-const WalletIcon = require("src/shared/assets/icons/wallet.svg") as string;
+const WalletIcon = require("src/shared/assets/icons/wallet.svg");
 
 export default function renderIcon(icon: string) {
   switch (icon) {

@@ -1,7 +1,7 @@
 import { Dimensions } from "src/shared/common/enums/Dimensions";
 import styled from "styled-components";
 
-export const HomeStyled = styled.section`
+export const CasePageStyled = styled.section`
   padding-top: 0.75rem;
 
   @media ${Dimensions.VERTICAL_MOBILE} {

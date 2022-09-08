@@ -8,12 +8,14 @@ export const theme = {
   colors: {
     white: "#FFFFFF",
     black: "#000000",
+    grey: "#EEEEEE",
   },
   borderRadius: {
     br2: "0.125rem",
     br8: "0.5rem",
     br12: "0.75rem",
     br24: "1.5rem",
+    br50: "3.125rem",
   },
   transition: {
     easeAll: "0.5s ease all",
